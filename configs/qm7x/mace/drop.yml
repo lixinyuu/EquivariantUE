@@ -1,0 +1,50 @@
+train_args:
+    amp: false
+    test: false
+    choose_best_val_model: false
+    dataset: "qm7x_ood"
+    dataset_target: "dp"
+    learning_rate: 0.01
+    loader_te_args:
+      batch_size: 32
+      num_workers: 4
+    loader_tr_args:
+      batch_size: 32
+      num_workers: 4
+    loss_fn: "L1Loss"
+    loss_fn_args: {}
+    lr_schedule: true
+    lr_schedule_args:
+      name: linear_warmup_exponential_decay
+      warmup_steps: 1
+      decay_steps: 300
+      decay_rate: 0.01
+    n_early_stopping: 100
+    n_epoch: 300
+    optimizer: Adam
+    optimizer_args:
+      weight_decay: 5.0e-7
+    seed:
+    - 1
+    - 10
+    - 100
+    - 1000
+    - 10000
+    ema: True
+    ema_decay: 0.99
+    normalizer: true
+    normalizer_args:
+      mean: -406750.0
+      std: 1.0
+    kl_weight: 0.001    
+model_args:
+    name: "MACEDropout22"
+    elements_type: [1,6,7,8,16,17]
+    pool: "sum"
+    otf_graph: true
+    use_pbc: false
+    regress_forces: false
+    num_interactions: 3
+    hidden_irreps: 128x0e+128x1o+128x2e
+    dropout_method: "bernoulli"
+    dropout_p: 0.1
